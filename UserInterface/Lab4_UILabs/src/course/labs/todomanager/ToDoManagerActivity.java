@@ -20,9 +20,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ListView;
 import android.widget.TextView;
 import course.labs.todomanager.ToDoItem.Priority;
 import course.labs.todomanager.ToDoItem.Status;
+
+import static course.labs.todomanager.ToDoItem.*;
 
 public class ToDoManagerActivity extends ListActivity {
 
@@ -48,30 +51,27 @@ public class ToDoManagerActivity extends ListActivity {
 
 		// TODO - Inflate footerView for footer_view.xml file
 		TextView footerView = null;
-
+		footerView = (TextView) getLayoutInflater().inflate(R.layout.footer_view,null);
 
 		// NOTE: You can remove this block once you've implemented the assignment
 		if (null == footerView) {
 			return;
 		}
 		// TODO - Add footerView to ListView
+		getListView().addFooterView(footerView);
 
-
-		
-        
-        
 		// TODO - Attach Listener to FooterView
 		footerView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
-
 				//TODO - Implement OnClick().
+				Intent intent = new Intent(getApplicationContext(),AddToDoActivity.class);
+				startActivityForResult(intent,ADD_TODO_ITEM_REQUEST);
 			}
 		});
 
 		// TODO - Attach the adapter to this ListActivity's ListView
-		
+		setListAdapter(mAdapter);
 	}
 
 	@Override
@@ -83,12 +83,17 @@ public class ToDoManagerActivity extends ListActivity {
 		// if user submitted a new ToDoItem
 		// Create a new ToDoItem from the data Intent
 		// and then add it to the adapter
+		if (resultCode == RESULT_CANCELED) {
+			return;
+		}
 
+		if (requestCode == ADD_TODO_ITEM_REQUEST && resultCode == RESULT_OK) {
 
-            
-            
-            
-		
+			//make ToDoItem instance
+			ToDoItem toDoItem = new ToDoItem(data);
+			mAdapter.add(toDoItem);
+		}
+
 
 	}
 
@@ -141,7 +146,7 @@ public class ToDoManagerActivity extends ListActivity {
 
 		for (int i = 0; i < mAdapter.getCount(); i++) {
 			String data = ((ToDoItem) mAdapter.getItem(i)).toLog();
-			Log.i(TAG,	"Item " + i + ": " + data.replace(ToDoItem.ITEM_SEP, ","));
+			Log.i(TAG,	"Item " + i + ": " + data.replace(ITEM_SEP, ","));
 		}
 
 	}
@@ -161,7 +166,7 @@ public class ToDoManagerActivity extends ListActivity {
 			while (null != (title = reader.readLine())) {
 				priority = reader.readLine();
 				status = reader.readLine();
-				date = ToDoItem.FORMAT.parse(reader.readLine());
+				date = FORMAT.parse(reader.readLine());
 				mAdapter.add(new ToDoItem(title, Priority.valueOf(priority),
 						Status.valueOf(status), date));
 			}

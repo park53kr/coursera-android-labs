@@ -64,7 +64,6 @@ public class AddToDoActivity extends Activity {
 
 		final Button datePickerButton = (Button) findViewById(R.id.date_picker_button);
 		datePickerButton.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				showDatePickerDialog();
@@ -89,13 +88,9 @@ public class AddToDoActivity extends Activity {
 		cancelButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
-
-
 				// TODO - Indicate result and finish
-
-                
-                
+				setResult(RESULT_CANCELED);
+				finish();
 			}
 		});
 
@@ -107,14 +102,11 @@ public class AddToDoActivity extends Activity {
 
 
 				// TODO - Reset data to default values
-
-
-                
-                
-                
+				mTitleText.setText("");
+				mStatusRadioGroup.check(R.id.statusNotDone);
+				mPriorityRadioGroup.check(R.id.medPriority);
 				// reset date and time
 				setDefaultDateTime();
-
 			}
 		});
 
@@ -125,20 +117,29 @@ public class AddToDoActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 
-
 				// gather ToDoItem data
 
 
 				// TODO - Get the current Priority
 				Priority priority = null;
+				if(mPriorityRadioGroup.getCheckedRadioButtonId() == R.id.lowPriority)
+					priority = Priority.LOW;
+				else if(mPriorityRadioGroup.getCheckedRadioButtonId() == R.id.medPriority)
+					priority = Priority.MED;
+				else if (mPriorityRadioGroup.getCheckedRadioButtonId() == R.id.highPriority) {
+					priority = Priority.HIGH;
+				}
 
 				// TODO - Get the current Status
 				Status status = null;
-
+				if (mStatusRadioGroup.getCheckedRadioButtonId() == R.id.statusDone) {
+					status = Status.DONE;
+				} else if (mStatusRadioGroup.getCheckedRadioButtonId() == R.id.statusNotDone) {
+					status = Status.NOTDONE;
+				}
 				// TODO - Get the current ToDoItem Title
+				String titleString = mTitleText.getText().toString();
 
-
-				String titleString = null;
 
 
 				// Construct the Date string
@@ -150,18 +151,17 @@ public class AddToDoActivity extends Activity {
 						fullDate);
 
 				// TODO - return data Intent and finish
+//				data.putExtra("title", titleString);
+//				data.putExtra("status", status);
+//				data.putExtra("priority", priority);
 
-
-
-
-            
-            
+				setResult(RESULT_OK,data);
+				finish();
 			}
 		    });
 	}
 
-	// Do not modify below this point.
-
+	// Do not modify below this point
 	private void setDefaultDateTime() {
 
 		// Default is current time + 7 days
