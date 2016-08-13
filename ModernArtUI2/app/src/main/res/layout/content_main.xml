@@ -22,7 +22,6 @@
             android:layout_weight="1"
             android:layout_marginBottom="5dp">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -33,13 +32,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#283593" />
+                    android:background="#283593"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#FF8F00" />
+                    android:background="#FF8F00"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"/>
 
             </LinearLayout>
 
@@ -47,19 +48,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#2E7D32" />
+                    android:background="#2E7D32"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#0277BD" />
+                    android:background="#0277BD"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"/>
 
                 <TextView
                     android:layout_width="match_parent"
