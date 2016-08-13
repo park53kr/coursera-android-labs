@@ -1,24 +1,63 @@
 package coursera.modernartui;
 
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
+import java.lang.reflect.Field;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Toolbar toolbar;
+    private SeekBar seekBar;
+    private TextView leftTop, leftBottom, rightTop, rightMiddle, rightBottom;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        leftTop = (TextView) findViewById(R.id.lefttop);
+        leftBottom = (TextView) findViewById(R.id.leftbottom);
+        rightTop = (TextView) findViewById(R.id.righttop);
+        rightMiddle = (TextView) findViewById(R.id.rightmiddle);
+        rightBottom = (TextView) findViewById(R.id.rightbottom);
 
+        seekBar = (SeekBar) findViewById(R.id.seekbar);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                int color;
+                changeBackgroundColor(leftTop,i);
+                changeBackgroundColor(leftBottom,i);
+                changeBackgroundColor(rightTop,i);
+                changeBackgroundColor(rightMiddle,i);
+                changeBackgroundColor(rightBottom,i);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+    }
+
+    private void changeBackgroundColor(TextView textView, int i) {
+        int color = getBackgroundColor(textView);
+        textView.setBackgroundColor(color-i*10);
     }
 
     @Override
@@ -42,4 +81,23 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public int getBackgroundColor(TextView textView) {
+        ColorDrawable drawable = (ColorDrawable) textView.getBackground();
+        if (Build.VERSION.SDK_INT >= 11) {
+            return drawable.getColor();
+        }
+        try {
+            Field field = drawable.getClass().getDeclaredField("mState");
+            field.setAccessible(true);
+            Object object = field.get(drawable);
+            field = object.getClass().getDeclaredField("mUseColor");
+            field.setAccessible(true);
+            return field.getInt(object);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return 0;
+    }
+
 }
