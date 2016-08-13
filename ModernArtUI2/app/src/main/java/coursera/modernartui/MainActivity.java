@@ -1,6 +1,10 @@
 package coursera.modernartui;
 
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private SeekBar seekBar;
     private TextView leftTop, leftBottom, rightTop, rightMiddle, rightBottom;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,11 +40,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 int color;
-                changeBackgroundColor(leftTop,i);
-                changeBackgroundColor(leftBottom,i);
-                changeBackgroundColor(rightTop,i);
-                changeBackgroundColor(rightMiddle,i);
-                changeBackgroundColor(rightBottom,i);
+                changeBackgroundColor(leftTop, i);
+                changeBackgroundColor(leftBottom, i);
+                changeBackgroundColor(rightTop, i);
+                changeBackgroundColor(rightMiddle, i);
+                changeBackgroundColor(rightBottom, i);
             }
 
             @Override
@@ -57,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void changeBackgroundColor(TextView textView, int i) {
         int color = getBackgroundColor(textView);
-        textView.setBackgroundColor(color-i*10);
+        textView.setBackgroundColor(color - i * 10);
     }
 
     @Override
@@ -76,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            //TODO: Need to add action poping up dialog
+            showDialog();
             return true;
         }
 
@@ -100,4 +107,16 @@ public class MainActivity extends AppCompatActivity {
         return 0;
     }
 
+    public void doPositiveClick() {
+        String q = getResources().getString(R.string.url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(q));
+        startActivity(intent);
+    }
+
+    public void showDialog(){
+        DialogFragment newFragment = MyDialogFragment.newInstance(R.string.dialog_title);
+        newFragment.show(getFragmentManager(), "dialog");
+    }
 }
+
+
