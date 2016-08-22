@@ -68,7 +68,7 @@ public class MainActivity extends Activity implements SelectionListener,
 
 		// Make new Fragment 
 		mFriendsFragment = new FriendsFragment();
-		
+
 		// Give Fragment to the FragmentManager
 		FragmentTransaction transaction = mFragmentManager.beginTransaction();
 		transaction.replace(R.id.fragment_container, mFriendsFragment,
