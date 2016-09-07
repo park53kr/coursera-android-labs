@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Lab5-AsyncTaskLab/Lab5-AsyncTaskLab.iml" filepath="$PROJECT_DIR$/Lab5-AsyncTaskLab/Lab5-AsyncTaskLab.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Lab5-AsyncTaskLabTest/Lab5-AsyncTaskLabTest.iml" filepath="$PROJECT_DIR$/Lab5-AsyncTaskLabTest/Lab5-AsyncTaskLabTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AsyncTask.iml" filepath="$PROJECT_DIR$/AsyncTask.iml" />
     </modules>
   </component>
 </project>

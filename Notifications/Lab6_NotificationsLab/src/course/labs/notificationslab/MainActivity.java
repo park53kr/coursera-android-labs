@@ -85,7 +85,7 @@ public class MainActivity extends Activity implements SelectionListener,
 
 			// TODO: Show a Toast message displaying
 			// R.string.download_in_progress string
-
+			android.widget.Toast.makeText(MainActivity.this, R.string.download_in_progress, Toast.LENGTH_SHORT).show();
 
 			
 			
